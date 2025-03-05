@@ -9,7 +9,7 @@ L’injection SQL (SQLi) permet à un attaquant d’exécuter des requêtes SQL 
 Prenons un script PHP vulnérable :
 ```php
 <?php
-$pdo = new PDO("mysql:host=localhost;dbname=testdb", "root", "");
+$pdo = new PDO("mysql:host=localhost;dbname=test_injection", "root", "");
 
 // Récupération d’un utilisateur sans protection
 if (isset($_GET['id'])) {
@@ -20,8 +20,8 @@ if (isset($_GET['id'])) {
     print_r($user);
 }
 ?>
-```
 
+```
 ---
 
 ## 🔍 Tester la vulnérabilité
@@ -39,17 +39,31 @@ Cela **affichera tous les utilisateurs** au lieu d’un seul.
 
 ## 🛡️ Protection avec `PDO` et requêtes préparées
 ```php
-<?php
-$pdo = new PDO("mysql:host=localhost;dbname=testdb", "root", "");
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+<?php
+try {
+    $pdo = new PDO("mysql:host=localhost;dbname=testdb", "root", "", [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    ]);
+} catch (PDOException $e) {
+    die("Erreur de connexion");
+}
+
+if (isset($_GET['id']) && ctype_digit($_GET['id'])) {
+    $id = (int) $_GET['id'];
     $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
     $user = $stmt->fetch();
-    print_r($user);
+
+    if ($user) {
+        print_r($user);
+    } else {
+        echo "Utilisateur non trouvé.";
+    }
+} else {
+    echo "ID invalide.";
 }
 ?>
 ```
