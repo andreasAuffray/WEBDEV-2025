@@ -160,24 +160,17 @@
   - Développement d'api avec Python 
 ---
 
-### **Chapitre 19 : Déploiement et monitoring**  
+### **Chapitre 19 : Déploiement et conteneurisation**  
 - Déploiement d'applications sur des serveurs distants  
-- Utilisation de conteneurs (Docker) et orchestration (Kubernetes)  
-- Surveillance et monitoring des applications (Prometheus, Grafana, etc.)  
-- Gestion des logs et débogage en production  
-
+- Utilisation de conteneurs (Docker). 
 ---
 
 ### **Chapitre 20 : Projet final et bonnes pratiques**  
 - Mise en pratique des connaissances acquises  
 - Développement d'un projet web complet  
-- Déploiement et maintenance  
-- Revue des bonnes pratiques et optimisation  
-
 ---
 
 ### **Chapitre 21 : Conclusion et perspectives**  
 - Synthèse des compétences acquises  
 - Perspectives d'évolution dans le domaine du développement web  
-- Ressources pour approfondir les connaissances  
-
+- Ressources pour approfondir les connaissances
