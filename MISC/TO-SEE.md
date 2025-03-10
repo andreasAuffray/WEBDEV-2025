@@ -30,3 +30,9 @@
   - MVC 
   - MICROSERVICE
   - SOA
+
+### ORM : 
+Lister les ORM et leur utilités
+
+### Plateformes entrainement Dev
+- Leetcode
